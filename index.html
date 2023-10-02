@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<head>
+  <title>Danh sách cán bộ</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand" href="#">Trang chủ</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item d-flex text-center">
+          <input type="text">
+          <a class="nav-link text-white" href="#">Tìm kiếm</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="login float-left">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item nav-hover">
+              <a class="nav-link text-white " href="#">username |</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/logout">logout</a>
+            </li>
+          </ul>
+    </div>  
+</nav>
+<!-- <h1 class="container">Thêm cán bộ</h1>
+<div class="form-group container" >
+  <label for="hoten">họ tên:</label>
+  <input type="text" class="form-control" id="hoten" name = "hoten">
+</div>
+
+<div class="form-group container" name="gioitinh">Giới tính :  
+  <label class="radio-inline mr-4 ml-4"><input type="radio"  name="gioitinh" value="Nam" >Nam</label>
+  <label class="radio-inline "><input type="radio"  name="gioitinh" value="Nữ">Nữ</label>
+</div>
+<div class="form-group container">
+  <label for="diachi">địa chỉ:</label>
+  <input type="text" class="form-control" id="diachi" name = "diachi">
+</div>
+<div class="form-group container">
+    <button type="submit" class="btn btn-primary ">Thêm cán bộ</button>
+</div> -->
+    <!-- <h1> Danh sách cán bộ</h1>
+
+      <section class="table-wapper">
+        <table class=" table mt-4 ">
+          <tr>
+            <th>STT</th>
+            <th>Họ tên</th>
+            <th>Giới tính</th>
+            <th>Địa chỉ</th>
+            <th>Tuỳ Chọn</th>
+          </tr>
+ 
+            <tr class="tr-hover">
+              <td class="align-middle">
+                1
+              </td>
+              <td>nguyen van a</td>
+              <td>nam</td>
+              <td>Hp</td>
+              <td class="align-middle">
+                <a class="btn btn-primary" href="#">Sửa</a>
+                <a class="btn btn-danger" data-toggle="modal" data-target="#delete-employee"
+                  data-id="">xoá</a>
+              </td>
+            </tr>
+        </table>
+      </section>
+      <div class="modal fade" id="delete-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger" id="exampleModalLabel">Xoá cán bộ?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Xác nhận xoá thông tin cán bộ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+              <button type="button" class="btn btn-danger" id="delete-employee-modal">Xoá</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form name="delete-employee-form" action="GET"></form>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var emplyeeId;
+        var btnDeleteEmployee = document.getElementById("delete-employee-modal");
+        var deleteForm = document.forms["delete-employee-form"];
+
+        $('#delete-employee').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          emplyeeId = button.data('id') // Extract info from data-* attributes
+        })
+        btnDeleteEmployee.onclick = d=function() {
+          deleteForm.action='/form-delete/' + emplyeeId;
+          deleteForm.submit();
+        }
+      })
+    </script> -->
+
+    <div class="container mt-5 p-3 bg-secondary">
+        <div class="row">
+            <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center">Thêm cán bộ</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="name">Enter name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone:</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="Ener Phone" id="phone" required>
+                                </div>
+                                <div class="form-group" required>Gender
+                                    <label class="radio-inline mr-4 ml-4"><input type="radio"  name="gender" value="male" >Male</label>
+                                    <label class="radio-inline "><input type="radio"  name="gender" value="female">Female</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Address:</label>
+                                    <input type="text" name="address" class="form-control" placeholder="Ener address" id="address" required>
+                                </div>
+                
+                                <div class="mt-3">
+                                    <button class="btn btn-primary float-right" onclick="submitForm()">submit</button>
+                                </div>
+                                <div class="w-100">
+                                    <span id="message" ></span>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+     
+            <div class="col-md-8">
+                <table class="table table-bordered text-white text-center">
+                    <thead>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Gender</th>
+                        <th>Address</th>
+                        <th colspan="2">Action</th>
+                    </thead>
+                    <tbody id="tbData">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+
+var editFormData;
+
+function getFormData() {
+  const checkRadionChecked = document.querySelector("input[name='gender']:checked");
+  if(checkRadionChecked){
+    return {
+            name:document.getElementById("name").value,
+            phone:document.getElementById("phone").value,
+            gender:checkRadionChecked.value,
+            address:document.getElementById("address").value
+    }
+  }
+}
+function resetRadio(){
+  const reset = document.querySelectorAll("input[name='gender']");
+  reset.forEach((button) => {
+  button.checked = false;
+});
+}
+function clearFormData() {
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        resetRadio();
+        document.getElementById("address").value = "";
+}
+
+function setFormData(name,phone,gender,address) {
+    document.getElementById("name").value = name;
+    document.getElementById("phone").value = phone;
+    document.querySelector(`input[name=${gender}]`).checked = true;
+    document.getElementById("adress").value = address;
+}
+
+// set the message for form status
+function setSuccessMessage(message) {
+    
+    document.getElementById("message").innerHTML = message;
+}
+async function editDataCall(id) {
+    // call get user details by id API
+  await  fetch(`http://localhost:3000/employee-update/${id}`,{
+        method:"GET"
+    }).then(response=>{
+      const editFormData =   response.employee;
+      if(response.status ===200){
+        setFormData(editFormData.name,editFormData.phone,editFormData.gender,editFormData.address)
+      }
+    })
+}
+
+// callled this function when user click on button
+function submitForm() {
+        if(!editFormData) addEmployee(); // if the editFormData is undefined then call addUser()
+        else editData();
+}
+// add user function 
+async function addEmployee() {
+  let payload = getFormData();
+  try {
+    const response = await fetch("http://localhost:3000/employee-add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+    const data = await response.json();
+    if (response.status === 200) {
+      document.getElementById("message").classList.add('text-sucess');
+      setSuccessMessage(data.message);
+      // clear input email and name
+      clearFormData();
+      getData(); // reload table 
+    } else if (response.status === 409) {  
+      document.getElementById("message").classList.add('text-danger');
+      setSuccessMessage(data.message);
+    }
+    else if (response.status === 401) {  
+      document.getElementById("message").classList.add('text-danger');
+      setSuccessMessage(data.message);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+// edit data 
+// function editData() {
+//     var formData = getFormData();
+//     formData['id'] = editFormData._id; // get _id from selected user
+//         fetch("http://localhost:3000/crud/updateData",{
+//             method:"POST",
+//             headers:{
+//                 "Content-Type":"application/json"
+//             },
+//             body:JSON.stringify(formData)
+//         }).then((res)=>res.json()).then((response)=>{
+//             setSuccessMessage(response.message)
+//                 clearFormData(); // clear the form field
+//                 getData() // reload the table
+//         })
+// }
+
+// delete data
+// function deleteData(id) {
+//     fetch("http://localhost:3000/crud/delete?id="+id).then((res)=>res.json()).then(
+//         (response)=>{
+//             setSuccessMessage(response.message);
+//             getData();
+//         }
+//     )
+// }
+
+// get data method
+  
+async function getData() {
+  try {
+    const response = await fetch("http://localhost:3000/employee");
+    const data = await response.json();
+    var tmpData = "";
+    for (let i = 0; i < data.employees.length; i++) {
+      tmpData += "<tr>";
+      tmpData += "<td>" + data.employees[i].name + "</td>";
+      tmpData += "<td>" + data.employees[i].phone + "</td>";
+      tmpData += "<td>" + data.employees[i].gender + "</td>";
+      tmpData += "<td>" + data.employees[i].address + "</td>";
+      tmpData +=
+        "<td><button class='btn btn-primary' onclick='editDataCall(`" +
+        data.employees[i].id +
+        "`)'>Edit</button></td>";
+      tmpData +=
+        "<td><button class='btn btn-danger' onclick='deleteData(`" +
+        data.employees[i].id +
+        "`)'>Delete</button></td>";
+      tmpData += "</tr>";
+    }
+    document.getElementById("tbData").innerHTML = tmpData;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+      
+        getData();
+    </script>
+
+   <script src="index.js"></script>
+
+    <!-- Modal -->
+
+    <!-- hidden form -->
+
+
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+crossorigin="anonymous"></script>
