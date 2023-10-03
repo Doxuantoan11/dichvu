@@ -19,7 +19,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
       <ul class="navbar-nav mr-auto">
 
         <li class="nav-item d-flex text-center">
-          <input type="text">
+          <input type="text" id="search">
           <a class="nav-link text-white" href="#">Tìm kiếm</a>
         </li>
       </ul>
@@ -175,7 +175,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
     
     <script>
 
-var editFormData;
+var editFormData ;
 
 function getFormData() {
   const checkRadionChecked = document.querySelector("input[name='gender']:checked");
@@ -204,8 +204,12 @@ function clearFormData() {
 function setFormData(name,phone,gender,address) {
     document.getElementById("name").value = name;
     document.getElementById("phone").value = phone;
-    document.querySelector(`input[name=${gender}]`).checked = true;
-    document.getElementById("adress").value = address;
+    if(gender == "male"){
+      document.querySelector('input[name="gender"][value="male"]').checked = true;
+    }else {
+      document.querySelector('input[name="gender"][value="female"]').checked = true;
+    }
+    document.getElementById("address").value = address;
 }
 
 // set the message for form status
@@ -214,16 +218,28 @@ function setSuccessMessage(message) {
     document.getElementById("message").innerHTML = message;
 }
 async function editDataCall(id) {
-    // call get user details by id API
-  await  fetch(`http://localhost:3000/employee-update/${id}`,{
-        method:"GET"
-    }).then(response=>{
-      const editFormData =   response.employee;
-      if(response.status ===200){
-        setFormData(editFormData.name,editFormData.phone,editFormData.gender,editFormData.address)
-      }
-    })
+  try {
+    const response = await fetch(`http://localhost:3000/employee-update/${id}`, {
+      method: "GET",
+    });
+    const data = await response.json();
+     editFormData = data.employee;
+    console.log('editFormData',editFormData);
+    if (response.status === 200) {
+      console.log('editFormData',editFormData.gender);
+      setFormData(
+        editFormData.name,
+        editFormData.phone,
+        editFormData.gender,
+        editFormData.address
+      );
+    }
+  } catch (error) {
+    console.error('Error logging in:', error);
+   
+  }
 }
+
 
 // callled this function when user click on button
 function submitForm() {
@@ -263,34 +279,63 @@ async function addEmployee() {
 
 
 // edit data 
-// function editData() {
-//     var formData = getFormData();
-//     formData['id'] = editFormData._id; // get _id from selected user
-//         fetch("http://localhost:3000/crud/updateData",{
-//             method:"POST",
-//             headers:{
-//                 "Content-Type":"application/json"
-//             },
-//             body:JSON.stringify(formData)
-//         }).then((res)=>res.json()).then((response)=>{
-//             setSuccessMessage(response.message)
-//                 clearFormData(); // clear the form field
-//                 getData() // reload the table
-//         })
-// }
+async function editData() {
+    var formData = getFormData();
+    formData['id'] = editFormData.id; // get _id from selected user
+    console.log('id:',editFormData.id);
+    try {
+    const response = await fetch("http://localhost:3000/employee-update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+    const data = await response.json();
+    if (response.status === 200) {
+      document.getElementById("message").classList.add('text-sucess');
+      setSuccessMessage(data.message);
+      // clear input email and name
+      clearFormData();
+      getData(); // reload table 
+    } else if (response.status === 401) {  
+      document.getElementById("message").classList.add('text-danger');
+      setSuccessMessage(data.message);
+    }
+    else if (response.status === 409) {  
+      document.getElementById("message").classList.add('text-danger');
+      setSuccessMessage(data.message);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // delete data
-// function deleteData(id) {
-//     fetch("http://localhost:3000/crud/delete?id="+id).then((res)=>res.json()).then(
-//         (response)=>{
-//             setSuccessMessage(response.message);
-//             getData();
-//         }
-//     )
-// }
+async function deleteData(id) {
+  console.log('id', id);
+  try {
+    const response = await fetch(`http://localhost:3000/employee-delete/${id}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    if (response.status === 200) {
+      console.log('success message', data.message);
+      setSuccessMessage(data.message);
+      getData();
+    }
+  } catch (error) {
+    console.error('Error delete :', error);   
+  }
+}
+//search employy 
+
+
+
+
 
 // get data method
-  
+ 
 async function getData() {
   try {
     const response = await fetch("http://localhost:3000/employee");
@@ -317,9 +362,75 @@ async function getData() {
     console.error(error);
   }
 }
+async function getDataQuerry(query) {
+  try {
+    const response = await fetch(`http://localhost:3000/employee-search?q=${query}`);
+    const data = await response.json();
+    var tmpData = "";
+    for (let i = 0; i < data.length; i++) {
+      tmpData += "<tr>";
+      tmpData += "<td>" + data[i].name + "</td>";
+      tmpData += "<td>" + data[i].phone + "</td>";
+      tmpData += "<td>" + data[i].gender + "</td>";
+      tmpData += "<td>" + data[i].address + "</td>";
+      tmpData +=
+        "<td><button class='btn btn-primary' onclick='editDataCall(`" +
+        data[i].id +
+        "`)'>Edit</button></td>";
+      tmpData +=
+        "<td><button class='btn btn-danger' onclick='deleteData(`" +
+        data[i].id +
+        "`)'>Delete</button></td>";
+      tmpData += "</tr>";
+    }
+    document.getElementById("tbData").innerHTML = tmpData;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-      
+const searchInput = document.getElementById("search");
+searchInput.addEventListener('input', async () => {
+  const query = searchInput.value;
+  try {
+    const response = await fetch(`http://localhost:3000/employee-search?q=${query}`, {
+      method: "GET",
+    });
+    
+    const {message, employees} = await response.json();
+    console.log('message:', message);
+    console.log('status:', response.status);
+    console.log('employees:', employees);
+    try {
+    var tmpData = "";
+    for (let i = 0; i < employees.length; i++) {
+      tmpData += "<tr>";
+      tmpData += "<td>" + employees[i].name + "</td>";
+      tmpData += "<td>" + employees[i].phone + "</td>";
+      tmpData += "<td>" + employees[i].gender + "</td>";
+      tmpData += "<td>" + employees[i].address + "</td>";
+      tmpData +=
+        "<td><button class='btn btn-primary' onclick='editDataCall(`" +
+          employees[i].id +
+        "`)'>Edit</button></td>";
+      tmpData +=
+        "<td><button class='btn btn-danger' onclick='deleteData(`" +
+          employees[i].id +
+        "`)'>Delete</button></td>";
+      tmpData += "</tr>";
+    }
+    document.getElementById("tbData").innerHTML = tmpData;
+
+  } catch (error) {
+    console.error(error);
+  }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+
         getData();
+  
     </script>
 
    <script src="index.js"></script>
