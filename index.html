@@ -9,7 +9,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <a class="navbar-brand" href="#">Trang chủ</a>
+    <a class="navbar-brand" href="#">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -19,8 +19,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
       <ul class="navbar-nav mr-auto">
 
         <li class="nav-item d-flex text-center">
-          <input type="text" id="search">
-          <a class="nav-link text-white" href="#">Tìm kiếm</a>
+          <input type="text" id="search" class="form-control rounded" placeholder="Search" style="height:35px">
         </li>
       </ul>
     </div>
@@ -28,108 +27,25 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
     <div class="login float-left">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item nav-hover">
-              <a class="nav-link text-white " href="#">username |</a>
+              <a id="username" class="nav-link text-white " href="#">username |</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/logout">logout</a>
+              <a id='logout' class="nav-link text-white" >logout</a>
             </li>
           </ul>
     </div>  
 </nav>
-<!-- <h1 class="container">Thêm cán bộ</h1>
-<div class="form-group container" >
-  <label for="hoten">họ tên:</label>
-  <input type="text" class="form-control" id="hoten" name = "hoten">
-</div>
-
-<div class="form-group container" name="gioitinh">Giới tính :  
-  <label class="radio-inline mr-4 ml-4"><input type="radio"  name="gioitinh" value="Nam" >Nam</label>
-  <label class="radio-inline "><input type="radio"  name="gioitinh" value="Nữ">Nữ</label>
-</div>
-<div class="form-group container">
-  <label for="diachi">địa chỉ:</label>
-  <input type="text" class="form-control" id="diachi" name = "diachi">
-</div>
-<div class="form-group container">
-    <button type="submit" class="btn btn-primary ">Thêm cán bộ</button>
-</div> -->
-    <!-- <h1> Danh sách cán bộ</h1>
-
-      <section class="table-wapper">
-        <table class=" table mt-4 ">
-          <tr>
-            <th>STT</th>
-            <th>Họ tên</th>
-            <th>Giới tính</th>
-            <th>Địa chỉ</th>
-            <th>Tuỳ Chọn</th>
-          </tr>
- 
-            <tr class="tr-hover">
-              <td class="align-middle">
-                1
-              </td>
-              <td>nguyen van a</td>
-              <td>nam</td>
-              <td>Hp</td>
-              <td class="align-middle">
-                <a class="btn btn-primary" href="#">Sửa</a>
-                <a class="btn btn-danger" data-toggle="modal" data-target="#delete-employee"
-                  data-id="">xoá</a>
-              </td>
-            </tr>
-        </table>
-      </section>
-      <div class="modal fade" id="delete-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-danger" id="exampleModalLabel">Xoá cán bộ?</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Xác nhận xoá thông tin cán bộ?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-              <button type="button" class="btn btn-danger" id="delete-employee-modal">Xoá</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <form name="delete-employee-form" action="GET"></form>
-
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var emplyeeId;
-        var btnDeleteEmployee = document.getElementById("delete-employee-modal");
-        var deleteForm = document.forms["delete-employee-form"];
-
-        $('#delete-employee').on('show.bs.modal', function (event) {
-          var button = $(event.relatedTarget) // Button that triggered the modal
-          emplyeeId = button.data('id') // Extract info from data-* attributes
-        })
-        btnDeleteEmployee.onclick = d=function() {
-          deleteForm.action='/form-delete/' + emplyeeId;
-          deleteForm.submit();
-        }
-      })
-    </script> -->
 
     <div class="container mt-5 p-3 bg-secondary">
-        <div class="row">
+        <div class="row" style="max-height: 440px;">
             <div class="col-md-4">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="text-center">Thêm cán bộ</h4>
+                                <h4 id ="titleForm" class="text-center text-info">Add Employee</h4>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Enter name</label>
+                                    <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" placeholder="Enter name" required>
                                 </div>
                                 <div class="form-group">
@@ -146,7 +62,8 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                                 </div>
                 
                                 <div class="mt-3">
-                                    <button class="btn btn-primary float-right" onclick="submitForm()">submit</button>
+                                    <button id='addform' class="btn btn-primary float-right" onclick="addEmployee()">submit</button>
+                                    <button id='editform' class="btn btn-primary float-right d-none" onclick="editEmployee()">submit</button>
                                 </div>
                                 <div class="w-100">
                                     <span id="message" ></span>
@@ -155,9 +72,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                         </div>
             </div>
      
-            <div class="col-md-8">
-                <table class="table table-bordered text-white text-center">
-                    <thead>
+            <div class="col-md-8 max" style="max-height: 420px;overflow: auto;">
+                <table class="table table-bordered text-white text-center " style="border-collapse: separate;">
+                    <thead class="sticky-top  bg-info" style="z-index:1;">
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Gender</th>
@@ -174,6 +91,27 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
     </div>
     
     <script>
+    // login lout
+    const userCheck = JSON.parse(localStorage.getItem('userCheck'));
+    if(userCheck !== null){
+    document.getElementById('username').innerHTML = userCheck.username;
+    } else {
+      // Redirect to login page
+      window.location.href = "/login.html";
+    }
+
+    const logoutButton = document.getElementById('logout');
+    logoutButton.addEventListener('click', () => {
+      // Remove the token from local storage
+      localStorage.removeItem('authToken');
+      
+      // Remove userCheck from local storage
+      localStorage.removeItem('userCheck');
+
+      // Redirect to login page
+      window.location.href = "/login.html";
+    });
+
 
 var editFormData ;
 
@@ -219,7 +157,7 @@ function setSuccessMessage(message) {
 }
 async function editDataCall(id) {
   try {
-    const response = await fetch(`http://localhost:3000/employee-update/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/employee-update/${id}`, {
       method: "GET",
     });
     const data = await response.json();
@@ -233,6 +171,9 @@ async function editDataCall(id) {
         editFormData.gender,
         editFormData.address
       );
+      document.getElementById("editform").classList.remove('d-none');
+      document.getElementById("addform").classList.add('d-none');
+      document.getElementById("titleForm").textContent='Edit Employee';
     }
   } catch (error) {
     console.error('Error logging in:', error);
@@ -240,17 +181,19 @@ async function editDataCall(id) {
   }
 }
 
-
+var formSubmitted = false;
 // callled this function when user click on button
-function submitForm() {
-        if(!editFormData) addEmployee(); // if the editFormData is undefined then call addUser()
-        else editData();
+function addform() {
+        addEmployee();
 }
-// add user function 
+function editform() {
+        editEmployee();
+}
+// add employee function 
 async function addEmployee() {
   let payload = getFormData();
   try {
-    const response = await fetch("http://localhost:3000/employee-add", {
+    const response = await fetch("http://localhost:3000/api/employee-add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -279,13 +222,13 @@ async function addEmployee() {
 
 
 // edit data 
-async function editData() {
+async function editEmployee() {
     var formData = getFormData();
     formData['id'] = editFormData.id; // get _id from selected user
     console.log('id:',editFormData.id);
     try {
-    const response = await fetch("http://localhost:3000/employee-update", {
-      method: "POST",
+    const response = await fetch("http://localhost:3000/api/employee-update", {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
@@ -298,6 +241,9 @@ async function editData() {
       // clear input email and name
       clearFormData();
       getData(); // reload table 
+      document.getElementById("editform").classList.add('d-none');
+      document.getElementById("addform").classList.remove('d-none');
+      document.getElementById("titleForm").textContent='Add Employee';
     } else if (response.status === 401) {  
       document.getElementById("message").classList.add('text-danger');
       setSuccessMessage(data.message);
@@ -311,34 +257,31 @@ async function editData() {
   }
 }
 
-// delete data
+// delete employee
 async function deleteData(id) {
-  console.log('id', id);
-  try {
-    const response = await fetch(`http://localhost:3000/employee-delete/${id}`, {
-      method: "DELETE",
-    });
-    const data = await response.json();
-    if (response.status === 200) {
-      console.log('success message', data.message);
-      setSuccessMessage(data.message);
-      getData();
+  if(confirm('Are you sure you want to delete?')) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/employee-delete/${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log('success message', data.message);
+        setSuccessMessage(data.message);
+        getData();
+      }
+    } catch (error) {
+      console.error('Error delete :', error);   
     }
-  } catch (error) {
-    console.error('Error delete :', error);   
   }
 }
-//search employy 
-
-
-
 
 
 // get data method
  
 async function getData() {
   try {
-    const response = await fetch("http://localhost:3000/employee");
+    const response = await fetch("http://localhost:3000/api/employee");
     const data = await response.json();
     var tmpData = "";
     for (let i = 0; i < data.employees.length; i++) {
@@ -352,7 +295,7 @@ async function getData() {
         data.employees[i].id +
         "`)'>Edit</button></td>";
       tmpData +=
-        "<td><button class='btn btn-danger' onclick='deleteData(`" +
+        "<td><button id='deleteButton' class='btn btn-danger' onclick='deleteData(`" +
         data.employees[i].id +
         "`)'>Delete</button></td>";
       tmpData += "</tr>";
@@ -388,12 +331,12 @@ async function getDataQuerry(query) {
     console.error(error);
   }
 }
-
+//search employy 
 const searchInput = document.getElementById("search");
 searchInput.addEventListener('input', async () => {
   const query = searchInput.value;
   try {
-    const response = await fetch(`http://localhost:3000/employee-search?q=${query}`, {
+    const response = await fetch(`http://localhost:3000/api/employee-search?q=${query}`, {
       method: "GET",
     });
     

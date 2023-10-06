@@ -57,6 +57,9 @@
                                 <label for="password" class="text-info">Password:</label><br>
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
+                            <div class="w-100 mb-2">
+                                <span id="message" >test</span>
+                            </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary btn-block mb-4">Login</button>
                             </div>
@@ -72,39 +75,45 @@
 
 
 <script >
-const button = document.querySelector('button[type="button"]');
-button.addEventListener('click', async(event) => {
-  event.preventDefault();
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const form = document.getElementById('form')
-  const url = 'http://localhost:3000/login';
-  const dataUser = { username, password };
-
-  await fetch(url, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(dataUser)
-  })
-    // .then(res=>res.json())
-    .then(response => {
-      // Handle the response data here
-      console.log((response ))
-   
-      console.log(' check status',response.status);
-      // Check if the login was successful
-      if (response.status === 200)  {   
-         window.location.href = "/";
-      }
-      else {
-        console.log(' check response.error',response.error);
-      }
-    })
-    .catch(error => { 
-      console.error(error);
-    });
+    function message(message) {       
+    document.getElementById("message").innerHTML = message;
+    }
+    function successMessageColor(){
+        document.getElementById("message").classList.remove('text-danger');
+        document.getElementById("message").classList.add('text-success');
+    }
+    function errorMessageColor(){
+        document.getElementById("message").classList.remove('text-success');
+        document.getElementById("message").classList.add('text-danger');
+    }
+    const button = document.querySelector('button[type="button"]');
+    button.addEventListener('click', async(event) => {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const form = document.getElementById('form')
+        const url = 'http://localhost:3000/api/login';
+        const dataUser = { username, password };
+        try {
+            const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dataUser)
+                });
+            const data = await response.json();
+            if (response.status === 200)  {   
+                localStorage.setItem('userCheck', JSON.stringify(data.userCheck));
+                window.location.href = "/";
+            }
+            if (response.status === 401)  {
+                errorMessageColor();
+                message(data.message);
+            }
+            }catch (error) {
+                console.error(error);
+            }
 });
 </script>
 </body>

@@ -20,16 +20,19 @@
                                 <h3 class="text-center text-info mt-3">Signup</h3>
                                 <div class="form-group">
                                     <label for="username" class="text-info">username:</label><br>
-                                    <input type="text" name="username" id="username" class="form-control">
+                                    <input type="text" name="username" id="username" class="form-control" placeholder="ex:123@gmail.com" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="text-info">Password:</label><br>
                                     <input type="password" name="password" id="password" class="form-control">
                                 </div>
+                                <div class="w-100 mb-2">
+                                    <span id="message" ></span>
+                                </div>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary btn-block mb-4">Signup</button>
                                 </div>
-                                <p class="text-center text-muted ">Don't have an account? <a href="/login.html"
+                                <p class="text-center text-muted ">already have an account? <a href="/login.html"
                              class="fw-bold text-body  "><u class="text-info">Login here</u></a></p>
                             </form>
                         </div>
@@ -39,36 +42,51 @@
         </form>
     </div>
     <script>
+        function message(message) {       
+            document.getElementById("message").innerHTML = message;
+        }
+        function successMessageColor(){
+            document.getElementById("message").classList.remove('text-danger');
+            document.getElementById("message").classList.add('text-success');
+        }
+        function errorMessageColor(){
+            document.getElementById("message").classList.remove('text-success');
+            document.getElementById("message").classList.add('text-danger');
+        }
         const button = document.querySelector('button[type="button"]');
-        button.addEventListener('click', () => {
-          const username = document.getElementById('username').value;
-          const password = document.getElementById('password').value;
-          const url = 'http://localhost:3000/signup';
-          const dataUser = { username, password };
-        
-          fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dataUser)
-          })
-            // .then(response => response.json())
-            .then(data => {
-              // Handle the response data here
-              console.log(data);
-              // Check if the login was successful
-              if (data.status === 200) {
-               console.log(response.data.status);
-                window.location.href = '/login';
-              } else   {
-                     console.log(data.error);
-              }
-            })
-            .catch(error => { 
-              console.error(error);
-            });
+        button.addEventListener('click', async () => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const url = 'http://localhost:3000/api/signup';
+            const dataUser = { username, password };
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dataUser)
+                });
+                const data = await response.json();
+                if (response.status === 200) {
+                    successMessageColor();
+                    message(data.message);
+                    // window.location.href = '/login';
+                } else if (response.status === 400){
+                    errorMessageColor();
+                    message(data.message);
+                } else if (response.status === 404){
+                    errorMessageColor();
+                    message(data.message);
+                } else if (response.status === 422){
+                    errorMessageColor();
+                    message(data.message);
+                }        
+            }catch (error) {
+                console.error(error);
+            }
         });
+    
         </script>
 </body>
 </html>
